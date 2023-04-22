@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import './Nav.scss';
 
@@ -7,6 +7,7 @@ const Nav = () => {
   const [searchText, setSearchText] = useState('');
   const [searchList, setSearchList] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`https://dummyjson.com/products/search?q=${searchText}`)
@@ -24,7 +25,10 @@ const Nav = () => {
     setIsOpenModal(prev => !prev);
   };
 
-  const goToDetail = id => {};
+  const goToDetail = id => {
+    navigate(`/detail/${id}`);
+  };
+
   return (
     <nav className="nav">
       <div className="contentContainer">
