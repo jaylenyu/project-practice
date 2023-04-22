@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import './Nav.scss';
@@ -7,6 +7,14 @@ const Nav = () => {
   const [searchText, setSearchText] = useState('');
   const [searchList, setSearchList] = useState([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
+
+  useEffect(() => {
+    fetch(`https://dummyjson.com/products/search?q=${searchText}`)
+      .then(res => res.json())
+      .then(data => {
+        setSearchList(data);
+      });
+  }, [searchText]);
 
   const searchProdut = e => {
     setSearchText(e.target.value);
@@ -17,7 +25,6 @@ const Nav = () => {
   };
 
   const goToDetail = id => {};
-
   return (
     <nav className="nav">
       <div className="contentContainer">
@@ -33,17 +40,18 @@ const Nav = () => {
           />
           {searchText.length > 0 && (
             <div className="searchBox">
-              {searchList.map(list => {
-                return (
-                  <span
-                    key={list.id}
-                    className="result"
-                    onClick={() => goToDetail(list.id)}
-                  >
-                    {list.title}
-                  </span>
-                );
-              })}
+              {searchList &&
+                searchList.products.map(list => {
+                  return (
+                    <span
+                      key={list.id}
+                      className="result"
+                      onClick={() => goToDetail(list.id)}
+                    >
+                      {list.title}
+                    </span>
+                  );
+                })}
             </div>
           )}
         </div>
