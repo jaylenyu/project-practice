@@ -1,9 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Products.scss';
 
 const Products = () => {
   const [productsList, setProductsList] = useState([]);
   const [totalProduct, setTotalProduct] = useState(0);
+
+  useEffect(() => {
+    fetch('https://dummyjson.com/products?limit=100')
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        setProductsList(data);
+      });
+  }, []);
 
   const filterProducts = e => {};
 
@@ -18,19 +27,20 @@ const Products = () => {
         </select>
       </div>
       <div className="listWrap">
-        {productsList.map(list => {
-          return (
-            <div key={list} className="cardContainer">
-              <img alt={list} src={list} className="cardImage" />
-              <div className="contentBox">
-                <span>상품명 : {}</span>
-                <span>가격 : {}$</span>
-                <span>별점 : {}</span>
-                <span>할인율 : {}%</span>
+        {productsList.length > 0 &&
+          productsList.map(list => {
+            return (
+              <div key={list} className="cardContainer">
+                <img alt={list} src={list} className="cardImage" />
+                <div className="contentBox">
+                  <span>상품명 : {}</span>
+                  <span>가격 : {}$</span>
+                  <span>별점 : {}</span>
+                  <span>할인율 : {}%</span>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
       <div className="buttonWrap" />
     </div>
