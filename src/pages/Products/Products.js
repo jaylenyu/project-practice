@@ -9,8 +9,8 @@ const Products = () => {
     fetch('https://dummyjson.com/products?limit=100')
       .then(res => res.json())
       .then(data => {
-        console.log(data);
-        setProductsList(data);
+        console.log(data.products);
+        setProductsList(data.products);
       });
   }, []);
 
@@ -28,19 +28,31 @@ const Products = () => {
       </div>
       <div className="listWrap">
         {productsList.length > 0 &&
-          productsList.map(list => {
-            return (
-              <div key={list} className="cardContainer">
-                <img alt={list} src={list} className="cardImage" />
-                <div className="contentBox">
-                  <span>상품명 : {}</span>
-                  <span>가격 : {}$</span>
-                  <span>별점 : {}</span>
-                  <span>할인율 : {}%</span>
+          productsList.map(
+            ({
+              id,
+              brand,
+              title,
+              description,
+              category,
+              images,
+              price,
+              rating,
+              discountPercentage,
+            }) => {
+              return (
+                <div key={id} className="cardContainer">
+                  <img alt={id} src={images[0]} className="cardImage" />
+                  <div className="contentBox">
+                    <span>상품명 : {title}</span>
+                    <span>가격 : {price}$</span>
+                    <span>별점 : {rating}</span>
+                    <span>할인율 : {discountPercentage}%</span>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            }
+          )}
       </div>
       <div className="buttonWrap" />
     </div>
