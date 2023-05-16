@@ -17,7 +17,7 @@ const Carousel = () => {
 
   return (
     <div className="carousel">
-      <h2>위코드 커리큘럼</h2>
+      <h2>Carousel</h2>
       <div className="imageContainer">
         {isFirstImage && (
           <button
@@ -49,12 +49,7 @@ const Carousel = () => {
       </div>
       <div className="dotContainer">
         {IMAGE_LIST.map(list => {
-          return (
-            <div
-              key={list}
-              className={`dot ${currentIndex === list - 1 && 'current'}`}
-            />
-          );
+          return <div key={list} />;
         })}
       </div>
     </div>
