@@ -49,12 +49,7 @@ const Carousel = () => {
       </div>
       <div className="dotContainer">
         {IMAGE_LIST.map(list => {
-          return (
-            <div
-              key={list}
-              className={`dot ${currentIndex === list - 1 && 'current'}`}
-            />
-          );
+          return <div key={list} />;
         })}
       </div>
     </div>
